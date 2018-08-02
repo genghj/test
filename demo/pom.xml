@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.youyuan</groupId>
+	<artifactId>paystrategy</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>paystrategy</name>
+	<description>pay strategy service</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.4.RELEASE</version><!-- 改了版本以后，如果编译不报错，右上侧报叉错误需要重启idea-->
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- set thymeleaf version -->
+		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
+		<java.version>1.7</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<!--,spring官方解释说spring-boot-start-web包含了spring webmvc和tomcat等web开发的特性-->
+			<!-- web支持: 1、web mvc; 2、restful; 3、jackjson支持; 4、aop ........ -->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-web</artifactId>-->
+			<!-- websocket ：springboot的高级组件会自动引用基础的组件，像spring-boot-starter-websocket就引入了spring-boot-starter-web和spring-boot-starter，所以不要重复引入。 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+			<!-- 从依赖信息里移除 Tomcat配置 -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- 然后添加 Undertow -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+		<!-- servlet 依赖. -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<!--<scope>provided</scope>-->
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+
+
+		<!--
+            JSTL（JSP Standard Tag Library，JSP标准标签库)是一个不断完善的开放源代码的JSP标签库，是由apache的jakarta小组来维护的。JSTL只能运行在支持JSP1.2和Servlet2.3规范的容器上，如tomcat 4.x。在JSP 2.0中也是作为标准支持的。
+ 			 不然报异常信息：
+            javax.servlet.ServletException: Circular view path [/helloJsp]: would dispatch back to the current handler URL [/helloJsp] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)
+
+         -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<!-- tomcat 的支持.-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+		<!-- 单元测试 的支持.-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--开发调试支持-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!--jpa start-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!--jpa end-->
+		<!--s druid DataSource -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.18</version>
+		</dependency>
+		<!--e druid -->
+		<!--HikariCP DataSource-->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot</artifactId>
+			<version>1.5.4.RELEASE</version>
+		</dependency>
+		<!--s thymeleaf 不增加配置的情况下，与jsp冲突-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<!--e thymeleaf-->
+		<!--s 提供了一个监控和管理生产环境的模块，可以使用http、jmx、ssh、telnet等拉管理和监控应用。审计（Auditing）、
+健康（health）、数据采集（metrics gathering）会自动加入到应用里面-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!--e thymeleaf-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- shiro ehcache -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<!--
+          包含支持UI模版（Velocity，FreeMarker，JasperReports），
+          邮件服务，
+          脚本服务(JRuby)，
+          缓存Cache（EHCache），
+          任务计划Scheduling（uartz）。
+       -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<!-- 添加redis支持-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-redis</artifactId>
+			<version>1.4.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
+		</dependency>
+		<!-- 集成ehcache需要的依赖-->
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+		<!-- 版本不对，分页可能不起作用 不要使用1.0.0版本-->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+
+		<!--
+             MyBatis提供了拦截器接口，我们可以实现自己的拦截器，
+             将其作为一个plugin装入到SqlSessionFactory中。
+            Github上有位开发者写了一个分页插件，我觉得使用起来还可以，挺方便的。
+            Github项目地址： https://github.com/pagehelper/Mybatis-PageHelper
+          -->
+		<!--  pagehelper   mybatis-spring-boot-starter版本不匹配也不生效-->
+		<!--<dependency>-->
+			<!--<groupId>com.github.pagehelper</groupId>-->
+			<!--<artifactId>pagehelper</artifactId>-->
+			<!--<version>4.2.1</version>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.5</version>
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- 发送邮件. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<!-- 引入模板引擎. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+		<!-- 增加mongodb支持 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<!-- activemq support -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>
+
+		<!-- Swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+		<!-- 引入velocity的依赖包. spring boot 1.5.x后面默认不支持velocity  -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity -->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-velocity</artifactId>-->
+			<!--<version>1.4.7.RELEASE</version>-->
+		<!--</dependency>-->
+		<!-- jersey -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jersey</artifactId>
+		</dependency>
+		<!-- shiro spring. -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
+		<!--1）spring-boot-starter-->
+		<!--这是Spring Boot的核心启动器，包含了自动配置、日志和YAML。-->
+
+		<!--2）spring-boot-starter-actuator-->
+		<!--帮助监控和管理应用。-->
+
+		<!--3）spring-boot-starter-amqp-->
+		<!--通过spring-rabbit来支持AMQP协议（Advanced Message Queuing Protocol）。-->
+
+		<!--4）spring-boot-starter-aop-->
+		<!--支持面向方面的编程即AOP，包括spring-aop和AspectJ。-->
+
+		<!--5）spring-boot-starter-artemis-->
+		<!--通过Apache Artemis支持JMS的API（Java Message Service API）。-->
+
+		<!--6）spring-boot-starter-batch-->
+		<!--支持Spring Batch，包括HSQLDB数据库。-->
+
+		<!--7）spring-boot-starter-cache-->
+		<!--支持Spring的Cache抽象。-->
+
+
+
+		<!--8）spring-boot-starter-cloud-connectors-->
+		<!--支持Spring Cloud Connectors，简化了在像Cloud Foundry或Heroku这样的云平台上连接服务。-->
+
+		<!--9）spring-boot-starter-data-elasticsearch-->
+		<!--支持ElasticSearch搜索和分析引擎，包括spring-data-elasticsearch。-->
+
+		<!--10）spring-boot-starter-data-gemfire-->
+		<!--支持GemFire分布式数据存储，包括spring-data-gemfire。-->
+
+		<!--11）spring-boot-starter-data-jpa-->
+		<!--支持JPA（Java Persistence API），包括spring-data-jpa、spring-orm、Hibernate。-->
+
+		<!--12）spring-boot-starter-data-mongodb-->
+		<!--支持MongoDB数据，包括spring-data-mongodb。-->
+
+		<!--13）spring-boot-starter-data-rest-->
+		<!--通过spring-data-rest-webmvc，支持通过REST暴露Spring Data数据仓库。-->
+
+		<!--14）spring-boot-starter-data-solr-->
+		<!--支持Apache Solr搜索平台，包括spring-data-solr。-->
+
+		<!--15）spring-boot-starter-freemarker-->
+		<!--支持FreeMarker模板引擎。-->
+
+		<!--16）spring-boot-starter-groovy-templates-->
+		<!--支持Groovy模板引擎。-->
+
+		<!--17）spring-boot-starter-hateoas-->
+		<!--通过spring-hateoas支持基于HATEOAS的RESTful Web服务。-->
+
+		<!--18）spring-boot-starter-hornetq-->
+		<!--通过HornetQ支持JMS。-->
+
+		<!--19）spring-boot-starter-integration-->
+		<!--支持通用的spring-integration模块。-->
+
+		<!--20）spring-boot-starter-jdbc-->
+		<!--支持JDBC数据库。-->
+
+		<!--21）spring-boot-starter-jersey-->
+		<!--支持Jersey RESTful Web服务框架。-->
+
+		<!--22）spring-boot-starter-jta-atomikos-->
+		<!--通过Atomikos支持JTA分布式事务处理。-->
+
+		<!--23）spring-boot-starter-jta-bitronix-->
+		<!--通过Bitronix支持JTA分布式事务处理。-->
+
+		<!--24）spring-boot-starter-mail-->
+		<!--支持javax.mail模块。-->
+
+		<!--25）spring-boot-starter-mobile-->
+		<!--支持spring-mobile。-->
+
+		<!--26）spring-boot-starter-mustache-->
+		<!--支持Mustache模板引擎。-->
+
+		<!--27）spring-boot-starter-redis-->
+		<!--支持Redis键值存储数据库，包括spring-redis。-->
+
+		<!--28）spring-boot-starter-security-->
+		<!--支持spring-security。-->
+
+		<!--29）spring-boot-starter-social-facebook-->
+		<!--支持spring-social-facebook-->
+
+		<!--30）spring-boot-starter-social-linkedin-->
+		<!--支持pring-social-linkedin-->
+
+		<!--31）spring-boot-starter-social-twitter-->
+		<!--支持pring-social-twitter-->
+
+		<!--32）spring-boot-starter-test-->
+		<!--支持常规的测试依赖，包括JUnit、Hamcrest、Mockito以及spring-test模块。-->
+
+		<!--33）spring-boot-starter-thymeleaf-->
+		<!--支持Thymeleaf模板引擎，包括与Spring的集成。-->
+
+		<!--34）spring-boot-starter-velocity-->
+		<!--支持Velocity模板引擎。-->
+
+		<!--35）spring-boot-starter-web-->
+		<!--S支持全栈式Web开发，包括Tomcat和spring-webmvc。-->
+
+		<!--36）spring-boot-starter-websocket-->
+		<!--支持WebSocket开发。-->
+
+		<!--37）spring-boot-starter-ws-->
+		<!--支持Spring Web Services。-->
+
+		<!--Spring Boot应用启动器面向生产环境的还有2种，具体如下：-->
+
+		<!--1）spring-boot-starter-actuator-->
+		<!--增加了面向产品上线相关的功能，比如测量和监控。-->
+
+		<!--2）spring-boot-starter-remote-shell-->
+		<!--增加了远程ssh shell的支持。-->
+
+		<!--最后，Spring Boot应用启动器还有一些替换技术的启动器，具体如下：-->
+
+		<!--1）spring-boot-starter-jetty-->
+		<!--引入了Jetty HTTP引擎（用于替换Tomcat）。-->
+
+		<!--2）spring-boot-starter-log4j-->
+		<!--支持Log4J日志框架。-->
+
+		<!--3）spring-boot-starter-logging-->
+		<!--引入了Spring Boot默认的日志框架Logback。-->
+
+		<!--4）spring-boot-starter-tomcat-->
+		<!--引入了Spring Boot默认的HTTP引擎Tomcat。-->
+
+		<!--5）spring-boot-starter-undertow-->
+		<!--引入了Undertow HTTP引擎（用于替换Tomcat）。-->

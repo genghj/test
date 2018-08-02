@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   <mapper namespace="com.youyuan.paystrategy.mapper.DemoMapper">
+    <resultMap id="baseResultMap" type="com.youyuan.paystrategy.bean.Demo" >
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+    </resultMap>
+    <select id="selectAll" resultMap="baseResultMap">
+        select * from demo
+    </select>
+    <select id="select1" resultMap="baseResultMap">
+        select *from demo
+        <where>
+        <if test="name != null and name != ''">
+            name = #{name}
+        </if>
+        <if test="email != null and email != ''">
+            and email=#{email}
+        </if>
+        </where>
+    </select>
+    <select id="select2" resultMap="baseResultMap">
+        select *from demo
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+            <if test="email != null and email != ''">
+                and email=#{email}
+            </if>
+        </trim>
+    </select>
+
+    <select id="select3" resultMap="baseResultMap">
+        select *from demo
+        <where>
+            <choose>
+                <when test="name != null and name != ''">
+                    name = #{name}
+                </when>
+                <when test="email != null and email != ''">
+                    and email=#{email}
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+
+    <select id="select4" resultMap="baseResultMap">
+        select *from demo where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="select5" resultMap="baseResultMap">
+        select *from demo where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <!--  insert 语句. -->
+    <insert id="save" parameterType="com.youyuan.paystrategy.bean.Demo" useGeneratedKeys="true" keyProperty="id">
+        insert into demo (name) values (#{name})
+    </insert>
+    <update id="update">
+        update demo set name = #{name} where id =  #{id}
+    </update>
+    <!--这样就可以单独修改name或者email，或者是同时修改name和email，但是需要注意，如果什么都不修改的话是会报错的。-->
+    <update id="update1">
+        update demo
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="email != null and email != ''">
+                email=#{email}
+            </if>
+        </set>
+        where id =  #{id}
+    </update>
+    <update id="update2">
+        update demo
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="email != null and email != ''">
+                email=#{email}
+            </if>
+        </trim>
+        where id =  #{id}
+    </update>
+    <delete id="delete">
+        delete from demo where id = #{id}
+    </delete>
+    <select id="selectById" resultMap="baseResultMap">
+        select *from demo where id = #{id}
+    </select>
+</mapper>
