@@ -47,7 +47,15 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<!--Hystrix Dashboard (断路器：Hystrix 仪表盘-->
-
+		<!--compile('org.springframework.cloud:spring-cloud-starter-zipkin')-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-ribbon</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

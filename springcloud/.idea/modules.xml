@@ -11,6 +11,8 @@
       <module fileurl="file://$PROJECT_DIR$/feignconsumer/feignconsumer.iml" filepath="$PROJECT_DIR$/feignconsumer/feignconsumer.iml" />
       <module fileurl="file://$PROJECT_DIR$/serviceconsumer/serviceconsumer.iml" filepath="$PROJECT_DIR$/serviceconsumer/serviceconsumer.iml" />
       <module fileurl="file://$PROJECT_DIR$/springcloud.iml" filepath="$PROJECT_DIR$/springcloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/turbineserver/turbineserver.iml" filepath="$PROJECT_DIR$/turbineserver/turbineserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zipkinserver/zipkinserver.iml" filepath="$PROJECT_DIR$/zipkinserver/zipkinserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/zuul/zuul.iml" filepath="$PROJECT_DIR$/zuul/zuul.iml" />
     </modules>
   </component>

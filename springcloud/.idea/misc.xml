@@ -16,6 +16,8 @@
         <option value="$PROJECT_DIR$/configserver/pom.xml" />
         <option value="$PROJECT_DIR$/configclient/pom.xml" />
         <option value="$PROJECT_DIR$/configclient1/pom.xml" />
+        <option value="$PROJECT_DIR$/zipkinserver/pom.xml" />
+        <option value="$PROJECT_DIR$/turbineserver/pom.xml" />
       </list>
     </option>
   </component>

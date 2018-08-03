@@ -31,6 +31,8 @@
         <module name="feignconsumer" />
         <module name="serviceconsumer" />
         <module name="springcloud" />
+        <module name="turbineserver" />
+        <module name="zipkinserver" />
         <module name="zuul" />
       </profile>
     </annotationProcessing>
@@ -44,6 +46,8 @@
       <module name="feignconsumer" target="1.8" />
       <module name="serviceconsumer" target="1.8" />
       <module name="springcloud" target="1.5" />
+      <module name="turbineserver" target="1.8" />
+      <module name="zipkinserver" target="1.8" />
       <module name="zuul" target="1.8" />
     </bytecodeTargetLevel>
   </component>

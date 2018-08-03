@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableEurekaClient
 @RestController
 public class EurekaserviceApplication {
+
 	@Value("${server.port}")
 	String port;
 	@RequestMapping("/hi")
