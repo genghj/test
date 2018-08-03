@@ -25,6 +25,7 @@
         <module name="configclient" />
         <module name="configclient1" />
         <module name="configserver" />
+        <module name="cosul" />
         <module name="eurekaServer" />
         <module name="eurekaservice" />
         <module name="eurekaservice1" />
@@ -40,6 +41,7 @@
       <module name="configclient" target="1.8" />
       <module name="configclient1" target="1.8" />
       <module name="configserver" target="1.8" />
+      <module name="cosul" target="1.8" />
       <module name="eurekaServer" target="1.8" />
       <module name="eurekaservice" target="1.8" />
       <module name="eurekaservice1" target="1.8" />
