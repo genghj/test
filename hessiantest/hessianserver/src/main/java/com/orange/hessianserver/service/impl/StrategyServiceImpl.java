@@ -1,11 +1,11 @@
 package com.orange.hessianserver.service.impl;
 
-//import cn.lover2.cache.LoverCache;
-//import cn.lover2.cache.McClient;
+import cn.lover2.cache.LoverCache;
+import lover2.cache.McClient;
 import com.alibaba.fastjson.JSON;
 import com.orange.hessianserver.service.StrategyService;
 import com.orange.hessianserver.util.Constant;
-import com.orange.hessianserver.util.RedisUtil;
+import com.orange.hessianserver.config.RedisUtil;
 import com.orange.hessianserver.util.Tools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +25,6 @@ import java.util.*;
 public class StrategyServiceImpl implements StrategyService {
     private final Logger logger = LoggerFactory.getLogger("StrategyServiceImpl");
 
-    @Autowired
-    private McClient mcClient;
     @Autowired
     private RedisUtil redisUtil;
     //====================配置平台3.0==start====================================
@@ -85,7 +83,7 @@ public class StrategyServiceImpl implements StrategyService {
     }
     private Object getInfoFromCache(String logId, String key, Object type){
         Object reult=null;
-        Object reultMc = mcClient.mGet(key);
+        Object reultMc = McClient.mGet(key);
         if(reultMc == null ){
             String reultRedis =String.valueOf(redisUtil.get(key)) ;// Tools.getInfoFromRedis( logId, key);
             reult=  JSON.toJavaObject(JSON.parseObject(reultRedis),type.getClass());
@@ -194,7 +192,7 @@ public class StrategyServiceImpl implements StrategyService {
         String sexAll="2";
         String conditionAll="0";
         String key =Constant.MCKEYPRE_CSBG_PAYSTRATEGY+ bizType+"_"+serviceType+"_"+sex + "_" + (2 - (userId % 2)) +"_"+areaCode+"_"+channel;
-        Map result=  (Map) mcClient.mGet( Constant.MCKEYPRE_CSBG_PAYSTRATEGY_USED+key);
+        Map result=  (Map) McClient.mGet( Constant.MCKEYPRE_CSBG_PAYSTRATEGY_USED+key);
         if(result==null||result.size()==0) {
 //            String userGroup =getUserGroup(userId);
             result = getStrategyInfoReferInstanceMap( Constant.MCKEYPRE_CSBG_PAYSTRATEGY+ bizType+"_"+serviceType+"_"+sexAll + "_" +conditionAll+"_"+areaCode,  channel);//男女，单双
@@ -208,7 +206,7 @@ public class StrategyServiceImpl implements StrategyService {
                 result = getStrategyInfoReferInstanceMap( Constant.MCKEYPRE_CSBG_PAYSTRATEGY+ bizType+"_"+serviceType+"_"+sex + "_" +(2 - (userId % 2))+"_"+areaCode,  channel);//男/女，单/双
             }
             if(result==null) result = new HashMap();
-            mcClient.mPut(Constant.MCKEYPRE_CSBG_PAYSTRATEGY_USED+key,result,120000);
+            McClient.mPut(Constant.MCKEYPRE_CSBG_PAYSTRATEGY_USED+key,result, LoverCache.MINUTE*2);
         }
 
         return result;
@@ -228,7 +226,7 @@ public class StrategyServiceImpl implements StrategyService {
         //关系key 找到对应的引用id
         Map instanceInfoMap= null;
         Map relationMap = null;
-        relationMap = (Map) mcClient.mGet(key);//mc
+        relationMap = (Map) McClient.mGet(key);//mc
         boolean fromRedis=false;
         if (relationMap == null) {
             String relationMapJsons = String.valueOf(redisUtil.get(key)) ;//Tools.getInfoFromRedis(System.currentTimeMillis() + "", key);
@@ -414,7 +412,7 @@ public class StrategyServiceImpl implements StrategyService {
     @Override
     public Map getInstanceInfoMap(String instanceId){
         String key = Constant.MCKEYPRE_CSBG_MODELSET_INSTANCE + instanceId;
-        Map result = (Map) mcClient.mGet(key);
+        Map result = (Map) McClient.mGet(key);
         if(result==null) {
             try {
                 String resultStr = String.valueOf(redisUtil.get(key)) ;//Tools.getInfoFromRedis(System.currentTimeMillis() + "", key);
@@ -436,11 +434,11 @@ public class StrategyServiceImpl implements StrategyService {
         map.put(key, value);
         map.put("test2", "你好啊，this is  a test.");
         map.put("test1", "人都发出去了，让我咋干。");
-        mcClient.mPut("testkey","this is test value",5000l);
-        System.out.println("testkey mExists:"+mcClient.mExists("testkey"));
-        System.out.println("testkey testvalue:"+mcClient.mGet("testkey"));
-        mcClient.mPut(key, map, 50000);
-        Map result = (Map) mcClient.mGet(key);
+        McClient.mPut("testkey","this is test value",5000l);
+//        System.out.println("testkey mExists:"+McClient.mExists("testkey"));
+//        System.out.println("testkey testvalue:"+McClient.mGet("testkey"));
+        McClient.mPut(key, map, 50000);
+        Map result = (Map) McClient.mGet(key);
         if (null != result){
 
             result.put("fech time", System.currentTimeMillis() + "");

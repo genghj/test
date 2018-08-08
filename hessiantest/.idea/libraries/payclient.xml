@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="payclient">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/hessianclient/src/lib/payclient.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

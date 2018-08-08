@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/hessianclient/hessianclient.iml" filepath="$PROJECT_DIR$/hessianclient/hessianclient.iml" />
       <module fileurl="file://$PROJECT_DIR$/hessianserver/hessianserver.iml" filepath="$PROJECT_DIR$/hessianserver/hessianserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/hessiantest.iml" filepath="$PROJECT_DIR$/hessiantest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payclient/payclient.iml" filepath="$PROJECT_DIR$/payclient/payclient.iml" />
     </modules>
   </component>
 </project>

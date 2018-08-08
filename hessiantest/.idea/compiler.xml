@@ -24,13 +24,14 @@
         <processorPath useClasspath="true" />
         <module name="hessianclient" />
         <module name="hessianserver" />
-        <module name="hessiantest" />
+        <module name="payclient" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="hessianclient" target="1.8" />
-      <module name="hessianserver" target="1.8" />
+      <module name="hessianclient" target="1.7" />
+      <module name="hessianserver" target="1.7" />
       <module name="hessiantest" target="1.5" />
+      <module name="payclient" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

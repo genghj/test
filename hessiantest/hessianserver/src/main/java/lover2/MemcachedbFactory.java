@@ -5,14 +5,13 @@
 
 package lover2;
 
-import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
-import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+@Component
 public class MemcachedbFactory {
     private static List<SockIOPool> pools = new ArrayList();
     private static String[] DB_HOSTS = new String[]{"192.168.33.47:11211"};
@@ -20,14 +19,12 @@ public class MemcachedbFactory {
     public static boolean isOk = false;
 
     public MemcachedbFactory() {
+        MemcachedbFactory.init();
     }
-    @Bean
-    public MemCachedClient memCachedClient(){
-        return new MemCachedClient();
-    }
+
     public static void init() {
         //DB_HOSTS = "mem1.wap.yyinter.cn:22422,mem2.wap.yyinter.cn:22422,mem3.wap.yyinter.cn:22422,mem4.wap.yyinter.cn:22422,mem5.wap.yyinter.cn:22422,mem6.wap.yyinter.cn:22422,mem7.wap.yyinter.cn:22422,mem8.wap.yyinter.cn:22422".split(",");
-
+        System.out.println("init:"+DB_HOSTS.length);
         for(int i = 0; i < DB_HOSTS.length; ++i) {
             SockIOPool pool = SockIOPool.getInstance("lover2wap" + i);
             String[] hosts = new String[]{DB_HOSTS[i]};

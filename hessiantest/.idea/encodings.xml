@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/hessianclient" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/hessianserver" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payclient" charset="UTF-8" />
   </component>
 </project>

@@ -16,6 +16,10 @@ public class TestController {
     @RequestMapping("/test2")
     public Map test2(String key,String value) {
         System.out.println(JSON.toJSONString(strategyService.setInstanceInfoMap(key,value)));
-        return strategyService.getInstanceInfoMap("1");
+        long userId = Math.round(Math.random()*1000000);
+        long channel  =Math.round(Math.random()*5000);
+        long areaCode  =Math.round(Math.random()*350);
+        return   strategyService.getStrategyInfoMap("zhiFu", "douBi",  userId,  "0" ,   channel+"",  ""+ areaCode);
+//        return strategyService.getInstanceInfoMap("1");
     }
 }
